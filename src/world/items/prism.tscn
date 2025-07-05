@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://binhpd6iejoei"]
+
+[ext_resource type="Script" uid="uid://cb7dap14jr5hs" path="res://src/world/items/item.gd" id="1_bfhnl"]
+[ext_resource type="Texture2D" uid="uid://cknnpbe7gnutf" path="res://assets/prototype/Green/texture_01.png" id="2_8v8cs"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bfhnl"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uxchj"]
+albedo_texture = ExtResource("2_8v8cs")
+
+[sub_resource type="PrismMesh" id="PrismMesh_bfhnl"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[node name="prism" type="RigidBody3D"]
+max_contacts_reported = 1
+script = ExtResource("1_bfhnl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_bfhnl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_uxchj")
+mesh = SubResource("PrismMesh_bfhnl")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

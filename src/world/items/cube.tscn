@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://y6fy6xs2o8ci"]
+
+[ext_resource type="Script" uid="uid://cb7dap14jr5hs" path="res://src/world/items/item.gd" id="1_ufb6u"]
+[ext_resource type="Texture2D" uid="uid://i7gspi7jeo73" path="res://assets/prototype/Red/texture_06.png" id="2_58phj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cmekt"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2njb1"]
+albedo_texture = ExtResource("2_58phj")
+
+[sub_resource type="BoxMesh" id="BoxMesh_ufb6u"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[node name="cube" type="RigidBody3D"]
+script = ExtResource("1_ufb6u")
+metadata/_custom_type_script = "uid://cb7dap14jr5hs"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_cmekt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_2njb1")
+mesh = SubResource("BoxMesh_ufb6u")
