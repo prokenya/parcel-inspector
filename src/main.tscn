@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bwrs2k5s0tiad"]
+[gd_scene load_steps=22 format=3 uid="uid://bwrs2k5s0tiad"]
 
 [ext_resource type="PackedScene" uid="uid://pgmbm2u72m37" path="res://src/world/conveyor.tscn" id="1_eewff"]
 [ext_resource type="Script" uid="uid://cw3ume8jofuc7" path="res://src/main.gd" id="1_kmhfv"]
@@ -7,16 +7,13 @@
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_3cfgd"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_fyndt"]
 [ext_resource type="PackedScene" uid="uid://binhpd6iejoei" path="res://src/world/items/prism.tscn" id="4_rlaii"]
-[ext_resource type="PackedScene" uid="uid://y6fy6xs2o8ci" path="res://src/world/items/cube.tscn" id="4_srxbw"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="5_fyndt"]
-[ext_resource type="PackedScene" uid="uid://nn4vas74wv21" path="res://src/world/items/soccer_ball.tscn" id="5_mlv6i"]
-[ext_resource type="PackedScene" uid="uid://bx0wxda0s2swq" path="res://src/world/items/bomb.tscn" id="6_tb146"]
-[ext_resource type="PackedScene" uid="uid://ccwnxq7d64keh" path="res://src/world/items/watermelon.tscn" id="7_e7lu8"]
 [ext_resource type="Script" uid="uid://cs5s67ii4c0a6" path="res://src/world/box_eraser.gd" id="9_kf8lf"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="10_mgm53"]
 [ext_resource type="PackedScene" uid="uid://bw6483aw51lc7" path="res://src/world/screen.tscn" id="12_kqbth"]
 [ext_resource type="PackedScene" uid="uid://ced1g08ta4g0d" path="res://src/gui/gui.tscn" id="14_d3u4l"]
 [ext_resource type="MeshLibrary" uid="uid://carorbqbjnpox" path="res://src/world/tiles.tres" id="14_mlv6i"]
+[ext_resource type="AudioStream" uid="uid://do7ko5eb2vwhv" path="res://assets/audio/sfx/burn.wav" id="16_sta5p"]
 [ext_resource type="AudioStream" uid="uid://darhv623bbjyj" path="res://assets/audio/music/m1.ogg" id="18_okx7f"]
 
 [sub_resource type="Environment" id="Environment_eewff"]
@@ -64,7 +61,6 @@ environment = SubResource("Environment_eewff")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.51568, 5, 1.5)
 script = ExtResource("2_uewes")
 box = NodePath("RigidBody3D")
-items = Array[PackedScene]([ExtResource("4_rlaii"), ExtResource("4_srxbw"), ExtResource("5_mlv6i"), ExtResource("6_tb146"), ExtResource("7_e7lu8")])
 
 [node name="RigidBody3D" parent="world/item_spawner" instance=ExtResource("2_gh0ne")]
 
@@ -90,7 +86,7 @@ look_at_damping = true
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
 [node name="Camera3D" type="Camera3D" parent="world"]
-transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 1, 4.33087, -0.591612)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 4.33087, -0.591612)
 
 [node name="PhantomCameraHost" type="Node" parent="world/Camera3D"]
 process_priority = 300
@@ -120,15 +116,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 shape = SubResource("BoxShape3D_e7lu8")
 debug_color = Color(0.982696, 0, 0.364086, 1)
 
-[node name="floor_area2" type="Area3D" parent="world" node_paths=PackedStringArray("indicator_light")]
+[node name="floor_area2" type="Area3D" parent="world" node_paths=PackedStringArray("indicator_light", "audio_player")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.237, -6.5, 5)
 script = ExtResource("9_kf8lf")
 indicator_light = NodePath("../OmniLight3D2")
+audio_player = NodePath("AudioStreamPlayer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="world/floor_area2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245911, 0)
 shape = SubResource("BoxShape3D_d3u4l")
 debug_color = Color(0.982696, 0, 0.364086, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="world/floor_area2"]
+stream = ExtResource("16_sta5p")
+volume_db = -5.0
+bus = &"sfx"
 
 [node name="GridMap" type="GridMap" parent="world"]
 mesh_library = ExtResource("14_mlv6i")

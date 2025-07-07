@@ -10,7 +10,13 @@ var looked: bool = false:
 @onready var mistakes: Label = %mistakes
 @onready var massage: Label = %massage
 
-#@onready var locked_textures:Array[TextureRect] = [%TextureRect5, %TextureRect6,%TextureRect7, %TextureRect8]
+@onready var icons_grid: GridContainer = $SubViewport/Control/Panel/HBoxContainer/ScrollContainer/PanelContainer/icons_grid
+
+@onready var icons:Array[CompressedTexture2D] = G.gamedata.icons
+var added_ids:Array[int] = []
+@onready var sign_ok:CompressedTexture2D = preload("res://assets/icons/ok.png")
+@onready var sign_no:CompressedTexture2D = preload("res://assets/icons/no.png")
+
 
 func _on_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
 	if event.is_action_pressed("LMB"):
@@ -47,11 +53,21 @@ func _mistakes_count_changed(count:int):
 		
 		
 		
-#func show_next_textures(id:int):
-	#id = id * 2 - 4
-	#locked_textures[id].visible = true
-	#locked_textures[id+1].visible = true
-
+func show_next_textures(id:int):
+	if id in added_ids:return
+	
+	var item:TextureRect = TextureRect.new()
+	var sign:TextureRect = TextureRect.new()
+	if id in G.gamedata.ban_list:
+		sign.texture = sign_no
+	else:
+		sign.texture = sign_ok
+	item.texture = icons[id]
+	
+	added_ids.append(id)
+	
+	icons_grid.add_child(item)
+	icons_grid.add_child(sign)
 
 #region 3d ui
 # Used for checking if the mouse is inside the Area3D.
@@ -75,7 +91,7 @@ func _ready():
 	#NOTE signals
 	G.main.acceptable_parcels_changed.connect(_acceptable_parcels_changed)
 	G.main.mistakes_count_changed.connect(_mistakes_count_changed)
-	#G.main.current_item_changed.connect(func():show_next_textures(G.main.current_item.item_id))
+	G.main.current_item_changed.connect(func():show_next_textures(G.main.current_item.item_id))
 func _mouse_entered_area():
 	is_mouse_inside = true
 

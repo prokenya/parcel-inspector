@@ -1,9 +1,9 @@
 extends Area3D
 
 @export var with_reward:bool = false
-@onready var ban_list:Array[int] = [1,4]
+@onready var ban_list:Array[int] = G.gamedata.ban_list
 @export var indicator_light:Light3D
-
+@export var audio_player:AudioStreamPlayer
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
 
@@ -19,11 +19,10 @@ func _on_body_entered(body: Node3D) -> void:
 			
 		body.queue_free()
 		animate_light()
+		play_audio()
 	if body is Box:
 		body.reset()
 		
-
-
 
 var light_tween:Tween
 func animate_light(duration = 0.5):
@@ -35,3 +34,7 @@ func animate_light(duration = 0.5):
 	await light_tween.tween_property(indicator_light,"light_energy",start_energy + 5,duration/2)
 	light_tween.tween_property(indicator_light,"light_energy",start_energy,duration/2)
 	
+func play_audio():
+	if audio_player:
+		audio_player.pitch_scale = [0.8,0.9,1,1.1,1.2].pick_random()
+		audio_player.play()

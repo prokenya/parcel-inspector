@@ -7,6 +7,8 @@ extends Node3D
 @onready var static_body_3d: StaticBody3D = $StaticBody3D
 @onready var conveyor: MeshInstance3D = $conveyor/conveyor
 
+@onready var audio_error: AudioStreamPlayer = $AudioError
+
 func _ready() -> void:
 	G.main.current_item_changed.connect(func():if G.main.current_item.picked:enable = false)
 
@@ -19,9 +21,11 @@ func _physics_process(delta: float) -> void:
 		
 
 func _input(event: InputEvent) -> void:
-	if G.main.current_item:
-		if G.main.current_item.picked:return
 	if Input.is_action_just_pressed("ui_accept"):
+		if G.main.current_item:
+			if G.main.current_item.picked:
+				audio_error.play()
+				return
 		enable = !enable
 	if Input.is_action_just_pressed("ui_left"):
 		direction = -1

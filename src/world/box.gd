@@ -36,8 +36,7 @@ func _ready() -> void:
 	freeze = false
 	play_sound()
 func _on_animatable_body_3d_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
-	if !event.is_pressed():return
-	if event.is_action("LMB"):
+	if event.is_action_pressed("LMB"):
 		if is_open:
 			close()
 		else:
@@ -47,6 +46,8 @@ func reset():
 	freeze = true
 	position = Vector3.ZERO
 	rotation = Vector3.ZERO
+	linear_velocity = Vector3.ZERO
+	angular_velocity = Vector3.ZERO
 	camera.erase_look_at_targets(self)
 	close()
 	box_reset.emit()

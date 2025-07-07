@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var box: Box
-@export var items: Array[PackedScene]
+@onready var items: Array[PackedScene] = G.gamedata.items
 
 @onready var deafault_view: Node3D = $"../deafault_view"
 

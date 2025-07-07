@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://pgmbm2u72m37"]
+[gd_scene load_steps=13 format=4 uid="uid://pgmbm2u72m37"]
 
 [ext_resource type="Script" uid="uid://b57e7vtaysvfr" path="res://src/world/conveyer.gd" id="1_e05cn"]
 [ext_resource type="Texture2D" uid="uid://cy80if3rcl8js" path="res://assets/models/conveyor_0.png" id="2_pd57s"]
 [ext_resource type="Texture2D" uid="uid://d3i5tu7k3qdwi" path="res://assets/models/conveyor_1.png" id="3_rpigm"]
+[ext_resource type="AudioStream" uid="uid://do1yt4tihv000" path="res://assets/audio/sfx/error.wav" id="4_rpigm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e05cn"]
 friction = 1.2
@@ -143,3 +144,7 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 0.75, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_44eww")
 skeleton = NodePath("")
+
+[node name="AudioError" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_rpigm")
+bus = &"sfx"
