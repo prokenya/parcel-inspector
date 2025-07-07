@@ -27,7 +27,7 @@ func _input(event: InputEvent) -> void:
 				audio_error.play()
 				return
 		enable = !enable
-	if Input.is_action_just_pressed("ui_left"):
+	if Input.is_action_just_pressed("left"):
 		direction = -1
-	if Input.is_action_just_pressed("ui_right"):
+	if Input.is_action_just_pressed("right"):
 		direction = 1
