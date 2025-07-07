@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccwnxq7d64keh"]
+
+[ext_resource type="Script" uid="uid://cb7dap14jr5hs" path="res://src/world/items/item.gd" id="1_44exg"]
+[ext_resource type="PackedScene" uid="uid://bb8aget1s86d8" path="res://assets/models/watermelon.fbx" id="2_mpsvr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ae2lb"]
+radius = 0.31107
+height = 0.777181
+
+[node name="watermelon" type="RigidBody3D"]
+script = ExtResource("1_44exg")
+metadata/_custom_type_script = "uid://cb7dap14jr5hs"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_ae2lb")
+
+[node name="watermelon" parent="." instance=ExtResource("2_mpsvr")]

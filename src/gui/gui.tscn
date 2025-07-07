@@ -1,0 +1,316 @@
+[gd_scene load_steps=14 format=3 uid="uid://ced1g08ta4g0d"]
+
+[ext_resource type="Script" uid="uid://c85rjult3itdp" path="res://src/gui/GUI.gd" id="1_vj4cu"]
+[ext_resource type="Theme" uid="uid://bkmp1mdhml5pt" path="res://src/gui/theme.tres" id="2_42rt1"]
+[ext_resource type="Texture2D" uid="uid://bcjbbrnorfquy" path="res://assets/icons/space.png" id="2_cxisa"]
+[ext_resource type="Texture2D" uid="uid://cy7tpkkheujvo" path="res://assets/icons/LMB.png" id="3_2nq4v"]
+[ext_resource type="Texture2D" uid="uid://denbuey23o7an" path="res://assets/icons/MMBpng.png" id="5_mryhv"]
+[ext_resource type="Texture2D" uid="uid://bnm6aq154sppn" path="res://assets/icons/RMBpng.png" id="6_dc3pj"]
+[ext_resource type="Texture2D" uid="uid://w32u5v1kve5p" path="res://assets/icons/arrow.png" id="7_2nq4v"]
+[ext_resource type="Texture2D" uid="uid://davsdwuuyglw6" path="res://assets/icons/key_s.png" id="8_sg8jd"]
+
+[sub_resource type="GDScript" id="GDScript_eewff"]
+script/source = "extends Label
+
+func _physics_process(delta: float) -> void:
+	text = str(Engine.get_frames_per_second())
+"
+
+[sub_resource type="Animation" id="Animation_mlv6i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/settings:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["<settings>"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/NinePatchRect:patch_margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [40]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("info/NinePatch:patch_margin_top")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [460]
+}
+
+[sub_resource type="Animation" id="Animation_d3u4l"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/settings:text")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": ["<settings>", ">settings<"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/NinePatchRect:patch_margin_top")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [40, 185]
+}
+
+[sub_resource type="Animation" id="Animation_2nq4v"]
+resource_name = "show_controls"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("info/NinePatch:patch_margin_top")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 460]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tb146"]
+_data = {
+&"RESET": SubResource("Animation_mlv6i"),
+&"open": SubResource("Animation_d3u4l"),
+&"show_controls": SubResource("Animation_2nq4v")
+}
+
+[node name="gui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+theme = ExtResource("2_42rt1")
+script = ExtResource("1_vj4cu")
+
+[node name="fps" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+script = SubResource("GDScript_eewff")
+
+[node name="VBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 200.0
+grow_vertical = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+vertical_scroll_mode = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="settings" type="Button" parent="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("2_42rt1")
+text = "<settings>"
+
+[node name="grid" type="GridContainer" parent="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 2
+
+[node name="music" type="Label" parent="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/grid"]
+layout_mode = 2
+text = "music"
+
+[node name="music_spin_box" type="SpinBox" parent="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/grid"]
+layout_mode = 2
+value = 25.0
+
+[node name="sfx" type="Label" parent="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/grid"]
+layout_mode = 2
+text = "sfx"
+
+[node name="sfx_spin_box" type="SpinBox" parent="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/grid"]
+layout_mode = 2
+value = 25.0
+
+[node name="show_controls" type="Button" parent="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+focus_mode = 0
+text = "show controls"
+
+[node name="Control2" type="Control" parent="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="VBoxContainer"]
+layout_mode = 2
+patch_margin_top = 40
+
+[node name="gui_animations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_tb146")
+}
+speed_scale = 5.0
+
+[node name="info" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -314.0
+offset_right = 314.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="info"]
+layout_mode = 2
+size_flags_horizontal = 4
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="info/ScrollContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="show_controls" type="Button" parent="info/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+focus_mode = 0
+text = "ok"
+
+[node name="GridContainer" type="GridContainer" parent="info/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 2
+
+[node name="TextureRect2" type="TextureRect" parent="info/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("3_2nq4v")
+stretch_mode = 2
+
+[node name="Label2" type="Label" parent="info/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+text = "pick up/drop an object(open the box)"
+
+[node name="TextureRect3" type="TextureRect" parent="info/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("5_mryhv")
+stretch_mode = 2
+
+[node name="Label3" type="Label" parent="info/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+text = "rotate the picked object"
+
+[node name="TextureRect4" type="TextureRect" parent="info/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+texture = ExtResource("6_dc3pj")
+stretch_mode = 2
+
+[node name="Label4" type="Label" parent="info/ScrollContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+text = "throw the picked object"
+
+[node name="GridContainer2" type="GridContainer" parent="info/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 2
+
+[node name="TextureRect" type="TextureRect" parent="info/ScrollContainer/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+texture = ExtResource("2_cxisa")
+
+[node name="Label" type="Label" parent="info/ScrollContainer/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+text = "start/stop conveyor"
+
+[node name="GridContainer" type="GridContainer" parent="info/ScrollContainer/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 2
+
+[node name="TextureRect2" type="TextureRect" parent="info/ScrollContainer/VBoxContainer2/GridContainer2/GridContainer"]
+layout_mode = 2
+texture = ExtResource("7_2nq4v")
+stretch_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="info/ScrollContainer/VBoxContainer2/GridContainer2/GridContainer"]
+layout_mode = 2
+texture = ExtResource("7_2nq4v")
+stretch_mode = 2
+flip_h = true
+
+[node name="Label3" type="Label" parent="info/ScrollContainer/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+text = "change conveyor direction"
+
+[node name="TextureRect2" type="TextureRect" parent="info/ScrollContainer/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("8_sg8jd")
+stretch_mode = 2
+
+[node name="Label2" type="Label" parent="info/ScrollContainer/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "look at / look away from the screen"
+
+[node name="NinePatch" type="NinePatchRect" parent="info"]
+layout_mode = 2
+patch_margin_top = 460
+
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/settings" to="." method="_on_settings_pressed"]
+[connection signal="value_changed" from="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/grid/music_spin_box" to="." method="_on_music_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/grid/sfx_spin_box" to="." method="_on_sfx_spin_box_value_changed"]
+[connection signal="pressed" from="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/show_controls" to="." method="_on_show_controls_pressed"]
+[connection signal="pressed" from="info/ScrollContainer/VBoxContainer2/show_controls" to="." method="_on_show_controls_pressed"]

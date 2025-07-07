@@ -22,5 +22,3 @@ shape = SubResource("BoxShape3D_bfhnl")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_uxchj")
 mesh = SubResource("PrismMesh_bfhnl")
-
-[connection signal="input_event" from="." to="." method="_on_input_event"]
