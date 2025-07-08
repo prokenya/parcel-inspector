@@ -148,6 +148,8 @@ shape = SubResource("BoxShape3D_y07hl")
 transform = Transform3D(1.85148e-15, 4.37114e-08, 1, 1, -4.37114e-08, 5.9207e-17, 4.37114e-08, 1, -4.37114e-08, 0.0192721, 0, 0.57527)
 shape = SubResource("BoxShape3D_y07hl")
 
+[connection signal="area_entered" from="item_detector" to="." method="_on_item_detector_area_entered"]
+[connection signal="area_exited" from="item_detector" to="." method="_on_item_detector_area_exited"]
 [connection signal="body_entered" from="item_detector" to="." method="_on_item_detector_body_entered"]
 [connection signal="body_exited" from="item_detector" to="." method="_on_item_detector_body_exited"]
 [connection signal="input_event" from="box/Box/Box_001/StaticBody3D" to="." method="_on_animatable_body_3d_input_event"]

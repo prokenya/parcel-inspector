@@ -18,7 +18,12 @@ signal box_reset
 			
 	get():return item
 @export var is_open:bool = false
-
+var behind_the_view:bool = true:
+	set(value):
+		behind_the_view = value
+		if value:
+			G.main.camera_look_in.priority = 0
+	get():return behind_the_view
 
 
 func open():
@@ -63,9 +68,20 @@ func _on_item_detector_body_exited(body: Node3D) -> void:
 		item.in_box = false
 		item = null
 
+
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 func play_sound() -> void:
 	if audio_stream_player.playing:return
 	audio_stream_player.pitch_scale = [0.8,0.9,1,1.1,1.2].pick_random()
 	audio_stream_player.play()
+
+
+func _on_item_detector_area_entered(area: Area3D) -> void:
+	if area.is_in_group("view"):
+		behind_the_view = true
+
+
+func _on_item_detector_area_exited(area: Area3D) -> void:
+	if area.is_in_group("view"):
+		behind_the_view = false

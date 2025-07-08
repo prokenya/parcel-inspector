@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://bwrs2k5s0tiad"]
+[gd_scene load_steps=29 format=3 uid="uid://bwrs2k5s0tiad"]
 
 [ext_resource type="PackedScene" uid="uid://pgmbm2u72m37" path="res://src/world/conveyor.tscn" id="1_eewff"]
 [ext_resource type="Script" uid="uid://cw3ume8jofuc7" path="res://src/main.gd" id="1_kmhfv"]
+[ext_resource type="Script" uid="uid://lnjukinioe71" path="res://src/world/world.gd" id="2_d7bab"]
 [ext_resource type="PackedScene" uid="uid://ct88thi23iqv6" path="res://src/world/box.tscn" id="2_gh0ne"]
 [ext_resource type="Script" uid="uid://bcjj481ci3r3c" path="res://src/world/items/items_spawner.gd" id="2_uewes"]
 [ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_3cfgd"]
@@ -25,6 +26,18 @@
 background_mode = 1
 glow_bloom = 0.3
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_5mrjc"]
+size = Vector3(1, 30, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e7lu8"]
+size = Vector3(1, 16, 16)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d3u4l"]
+size = Vector3(1, 30, 30)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d7bab"]
+size = Vector3(6, 15, 15)
+
 [sub_resource type="Resource" id="Resource_3cfgd"]
 script = ExtResource("4_fyndt")
 duration = 1.0
@@ -45,19 +58,11 @@ near = 0.05
 far = 4000.0
 metadata/_custom_type_script = "uid://b8hhnqsugykly"
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_5mrjc"]
-size = Vector3(1, 30, 10)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_e7lu8"]
-size = Vector3(1, 16, 16)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_d3u4l"]
-size = Vector3(1, 30, 30)
-
 [node name="main" type="Node"]
 script = ExtResource("1_kmhfv")
 
 [node name="world" type="Node3D" parent="."]
+script = ExtResource("2_d7bab")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="world"]
 environment = SubResource("Environment_eewff")
@@ -65,9 +70,9 @@ environment = SubResource("Environment_eewff")
 [node name="item_spawner" type="Node3D" parent="world" node_paths=PackedStringArray("box")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.51568, 5, 1.5)
 script = ExtResource("2_uewes")
-box = NodePath("RigidBody3D")
+box = NodePath("box")
 
-[node name="RigidBody3D" parent="world/item_spawner" instance=ExtResource("2_gh0ne")]
+[node name="box" parent="world/item_spawner" instance=ExtResource("2_gh0ne")]
 
 [node name="prism" parent="world/item_spawner" instance=ExtResource("4_rlaii")]
 
@@ -86,6 +91,56 @@ item_id = 7
 [node name="keyboard" parent="world/item_spawner" instance=ExtResource("7_d7bab")]
 transform = Transform3D(0.339214, 0, 0.940709, 0, 1, 0, -0.940709, 0, 0.339214, 5.4147, -1.88161, -2.17957)
 item_id = 8
+
+[node name="areas" type="Node3D" parent="world"]
+
+[node name="screen" parent="world/areas" instance=ExtResource("12_kqbth")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 4, 5.80741)
+
+[node name="box_eraser" type="Area3D" parent="world/areas"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 1)
+script = ExtResource("9_kf8lf")
+with_reward = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/areas/box_eraser"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33996, 0, 0)
+shape = SubResource("BoxShape3D_5mrjc")
+debug_color = Color(0.982696, 0, 0.364086, 1)
+
+[node name="floor_area" type="Area3D" parent="world/areas"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 3.237, 0.5, -3)
+script = ExtResource("9_kf8lf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/areas/floor_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+shape = SubResource("BoxShape3D_e7lu8")
+debug_color = Color(0.982696, 0, 0.364086, 1)
+
+[node name="floor_area2" type="Area3D" parent="world/areas" node_paths=PackedStringArray("indicator_light", "audio_player")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.237, -6.5, 5)
+script = ExtResource("9_kf8lf")
+indicator_light = NodePath("../../OmniLight3D2")
+audio_player = NodePath("AudioStreamPlayer")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/areas/floor_area2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245911, 0)
+shape = SubResource("BoxShape3D_d3u4l")
+debug_color = Color(0.982696, 0, 0.364086, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="world/areas/floor_area2"]
+stream = ExtResource("16_sta5p")
+volume_db = -5.0
+bus = &"sfx"
+
+[node name="behind the view" type="Area3D" parent="world/areas" groups=["view"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.96082, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/areas/behind the view"]
+shape = SubResource("BoxShape3D_d7bab")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="world/areas/behind the view"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.1296, 0, 0)
+shape = SubResource("BoxShape3D_d7bab")
 
 [node name="conveyor" parent="world" instance=ExtResource("1_eewff")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.5)
@@ -106,6 +161,22 @@ spring_length = 15.0
 look_at_damping = true
 metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 
+[node name="PhantomCamera3D_look_in" type="Node3D" parent="world" node_paths=PackedStringArray("follow_target")]
+physics_interpolation_mode = 1
+transform = Transform3D(-1, 8.74227e-08, 3.82137e-15, 0, -4.37114e-08, 0.999999, 8.74227e-08, 0.999999, 4.37113e-08, -8.51568, 6.6, 1.5)
+top_level = true
+script = ExtResource("3_3cfgd")
+follow_mode = 5
+follow_target = NodePath("../item_spawner/box")
+tween_resource = SubResource("Resource_3cfgd")
+camera_3d_resource = SubResource("Resource_fyndt")
+follow_damping = true
+follow_axis_lock = 2
+follow_distance = 1.6
+spring_length = 1.6
+look_at_damping = true
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
 [node name="Camera3D" type="Camera3D" parent="world"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 4.33087, -0.591612)
 
@@ -114,44 +185,6 @@ process_priority = 300
 process_physics_priority = 300
 script = ExtResource("10_mgm53")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
-
-[node name="screen" parent="world" instance=ExtResource("12_kqbth")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 4, 5.80741)
-
-[node name="box_eraser" type="Area3D" parent="world"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 2, 1)
-script = ExtResource("9_kf8lf")
-with_reward = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="world/box_eraser"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33996, 0, 0)
-shape = SubResource("BoxShape3D_5mrjc")
-debug_color = Color(0.982696, 0, 0.364086, 1)
-
-[node name="floor_area" type="Area3D" parent="world"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 3.237, 0.5, -3)
-script = ExtResource("9_kf8lf")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="world/floor_area"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
-shape = SubResource("BoxShape3D_e7lu8")
-debug_color = Color(0.982696, 0, 0.364086, 1)
-
-[node name="floor_area2" type="Area3D" parent="world" node_paths=PackedStringArray("indicator_light", "audio_player")]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 1.237, -6.5, 5)
-script = ExtResource("9_kf8lf")
-indicator_light = NodePath("../OmniLight3D2")
-audio_player = NodePath("AudioStreamPlayer")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="world/floor_area2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.245911, 0)
-shape = SubResource("BoxShape3D_d3u4l")
-debug_color = Color(0.982696, 0, 0.364086, 1)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="world/floor_area2"]
-stream = ExtResource("16_sta5p")
-volume_db = -5.0
-bus = &"sfx"
 
 [node name="GridMap" type="GridMap" parent="world"]
 mesh_library = ExtResource("14_mlv6i")

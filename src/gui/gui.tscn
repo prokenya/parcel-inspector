@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ced1g08ta4g0d"]
+[gd_scene load_steps=17 format=3 uid="uid://ced1g08ta4g0d"]
 
 [ext_resource type="Script" uid="uid://c85rjult3itdp" path="res://src/gui/GUI.gd" id="1_vj4cu"]
 [ext_resource type="Theme" uid="uid://bkmp1mdhml5pt" path="res://src/gui/theme.tres" id="2_42rt1"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b5k12f06wo3ph" path="res://assets/icons/KEY_A.png" id="7_u0aic"]
 [ext_resource type="Texture2D" uid="uid://co81fep1g34rj" path="res://assets/icons/KEY_D.png" id="8_2hleb"]
 [ext_resource type="Texture2D" uid="uid://davsdwuuyglw6" path="res://assets/icons/key_s.png" id="8_sg8jd"]
+[ext_resource type="Texture2D" uid="uid://brx0yyw3r7ui0" path="res://assets/icons/KEY_X.png" id="11_2hleb"]
 
 [sub_resource type="GDScript" id="GDScript_eewff"]
 script/source = "extends Label
@@ -54,7 +55,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [460]
+"values": [520]
 }
 
 [sub_resource type="Animation" id="Animation_d3u4l"]
@@ -96,7 +97,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [0, 460]
+"values": [0, 520]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tb146"]
@@ -307,7 +308,7 @@ text = "change conveyor direction"
 
 [node name="TextureRect2" type="TextureRect" parent="info/ScrollContainer/VBoxContainer2/GridContainer2"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 8
 size_flags_vertical = 4
 texture = ExtResource("8_sg8jd")
 stretch_mode = 2
@@ -317,9 +318,21 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "look at / look away from the screen"
 
+[node name="TextureRect3" type="TextureRect" parent="info/ScrollContainer/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("11_2hleb")
+stretch_mode = 2
+
+[node name="Label4" type="Label" parent="info/ScrollContainer/VBoxContainer2/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "look at the box (top)"
+
 [node name="NinePatch" type="NinePatchRect" parent="info"]
 layout_mode = 2
-patch_margin_top = 460
+patch_margin_top = 520
 
 [connection signal="pressed" from="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/settings" to="." method="_on_settings_pressed"]
 [connection signal="value_changed" from="VBoxContainer/ScrollContainer/PanelContainer/VBoxContainer/grid/music_spin_box" to="." method="_on_music_spin_box_value_changed"]
