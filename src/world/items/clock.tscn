@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://2imoamxs4cb0"]
+
+[ext_resource type="Script" uid="uid://cb7dap14jr5hs" path="res://src/world/items/item.gd" id="1_fwb0h"]
+[ext_resource type="PackedScene" uid="uid://xgdo3y6bwnhq" path="res://assets/models/clock.fbx" id="2_hbsk2"]
+[ext_resource type="Script" uid="uid://t5rmioupmvfb" path="res://src/world/items/clock.gd" id="3_hbsk2"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hbsk2"]
+height = 0.13
+radius = 0.445
+
+[node name="clock" type="RigidBody3D"]
+script = ExtResource("1_fwb0h")
+item_id = 5
+metadata/_custom_type_script = "uid://cb7dap14jr5hs"
+
+[node name="clock" parent="." instance=ExtResource("2_hbsk2")]
+transform = Transform3D(0.5, 0, 0, 0, -2.18557e-08, 0.7, 0, -0.5, -3.0598e-08, 0, 0, 0)
+script = ExtResource("3_hbsk2")
+
+[node name="seconds" parent="clock/clock" index="0"]
+transform = Transform3D(3.34281e-07, -1.36152e-08, -1.71684, 0, 0.731273, -3.19649e-08, 1.71684, 2.65097e-15, 3.34281e-07, -8.14828e-14, 0.694703, -7.12925e-08)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0)
+shape = SubResource("CylinderShape3D_hbsk2")
+
+[editable path="clock"]

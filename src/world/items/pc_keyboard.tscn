@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=4 uid="uid://cwvv65y5ge6hl"]
+
+[ext_resource type="Script" uid="uid://cb7dap14jr5hs" path="res://src/world/items/item.gd" id="1_ofgov"]
+[ext_resource type="Texture2D" uid="uid://btdfsqk5y5hqe" path="res://assets/models/pc_0.png" id="2_h6jmy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ftlas"]
+resource_name = "M_PC"
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_h6jmy")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_eo5xs"]
+_surfaces = [{
+"aabb": AABB(-0.00341715, -0.00117116, -0.000183903, 0.00683429, 0.00234233, 0.000486242),
+"format": 34359742465,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAwAAAAIAAQAAAAQABAAAAAMABQABAAQABgAEAAMABQAEAAYAAgAHAAMAAgABAAcABwAGAAMAAQAFAAcABwAFAAYA"),
+"name": "M_PC",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 8,
+"vertex_data": PackedByteArray("OPJfu8CBmTovg545OPJfu8CBmboRTIk4OPJfu8CBmboz1kC5OPJfu8CBmToz1kC5OPJfO8CBmTovg545OPJfO8CBmboRTIk4OPJfO8CBmToz1kC5OPJfO8CBmboz1kC5")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_6ea5w"]
+resource_name = "Object_2"
+_surfaces = [{
+"aabb": AABB(-0.00341715, -0.00117116, -0.000183903, 0.00683429, 0.00234233, 0.000486242),
+"attribute_data": PackedByteArray("X3h7PigKpz0/gnE+ZAY2PogFZz5kBjY+iAVnPigKpz1KonQ/1tbWPkmidD84RA4+/755PzhEDj4Av3k/1tbWPk/Shz4oCqc9Xs2MPmQGNj7zk4I+ZAY2PvOTgj4oCqc94yp8P9jW1j7iKnw/PEQOPhDKfj88RA4+EMp+P9jW1j4yOEs/PEQOPobYYz84RA4+hthjP9bW1j4zOEs/1tbWPkv11z6sl+Q+VXSmPqyX5D5UdKY+5MUpPkr11z7kxSk+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAABAAIAAwAAAAIABAAFAAYABwAEAAYACAAJAAoACwAIAAoADAANAA4ADwAMAA4AEAARABIAEwAQABIAFAAVABYAFwAUABYA"),
+"material": SubResource("StandardMaterial3D_ftlas"),
+"name": "M_PC",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("OPJfu8CBmTovg545OPJfu8CBmboRTIk4OPJfu8CBmboz1kC5OPJfu8CBmToz1kC5OPJfO8CBmTovg545OPJfu8CBmTovg545OPJfu8CBmToz1kC5OPJfO8CBmToz1kC5OPJfO8CBmboRTIk4OPJfO8CBmTovg545OPJfO8CBmToz1kC5OPJfO8CBmboz1kC5OPJfu8CBmboRTIk4OPJfO8CBmboRTIk4OPJfO8CBmboz1kC5OPJfu8CBmboz1kC5OPJfO8CBmboz1kC5OPJfO8CBmToz1kC5OPJfu8CBmToz1kC5OPJfu8CBmboz1kC5OPJfu8CBmboRTIk4OPJfu8CBmTovg545OPJfO8CBmTovg545OPJfO8CBmboRTIk4AAD/f/9//78AAP9//3//vwAA/3//f/+/AAD/f/9//7//f/////////9//////////3//////////f////////////3//f/+/////f/9//7////9//3//v////3//f/+//38AAP//////fwAA//////9/AAD//////38AAP///////////3/+////////f/7///////9//////////3////9/PnTAiwCA/38+dMCLAID/fz50wIsAgP9/PnTAiwCA")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_eo5xs")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ofgov"]
+size = Vector3(0.68, 0.045, 0.245)
+
+[node name="keyboard" type="RigidBody3D"]
+script = ExtResource("1_ofgov")
+metadata/_custom_type_script = "uid://cb7dap14jr5hs"
+
+[node name="keyboard" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, -1.19209e-05, 100, 0, -100, -1.19209e-05, 0, 0, 0)
+mesh = SubResource("ArrayMesh_6ea5w")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ofgov")

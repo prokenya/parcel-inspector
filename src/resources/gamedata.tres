@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GameData" load_steps=12 format=3 uid="uid://eg3ow2bmc6ud"]
+[gd_resource type="Resource" script_class="GameData" load_steps=20 format=3 uid="uid://eg3ow2bmc6ud"]
 
 [ext_resource type="Script" uid="uid://b5b38870mnsd0" path="res://src/resources/gamedata.gd" id="1_t2o0r"]
 [ext_resource type="Texture2D" uid="uid://ubptpjho25t6" path="res://assets/icons/items/prism.png" id="1_wial7"]
@@ -6,14 +6,22 @@
 [ext_resource type="Texture2D" uid="uid://ds2thr0qshllu" path="res://assets/icons/items/ball.png" id="3_1mi1f"]
 [ext_resource type="Texture2D" uid="uid://cy232uhwnricc" path="res://assets/icons/items/watermelon.png" id="4_jnaut"]
 [ext_resource type="Texture2D" uid="uid://cmgtjcpi5sgqi" path="res://assets/icons/items/bomb.png" id="5_jqweu"]
+[ext_resource type="Texture2D" uid="uid://bk5gx78r5ns2p" path="res://assets/icons/items/clock.png" id="6_1mi1f"]
 [ext_resource type="PackedScene" uid="uid://binhpd6iejoei" path="res://src/world/items/prism.tscn" id="6_lph4g"]
+[ext_resource type="Texture2D" uid="uid://w3mix3nmt3jx" path="res://assets/icons/items/pc.png" id="7_nuv3s"]
 [ext_resource type="PackedScene" uid="uid://y6fy6xs2o8ci" path="res://src/world/items/cube.tscn" id="7_pwrbo"]
+[ext_resource type="Texture2D" uid="uid://b5eas6gjhfrcb" path="res://assets/icons/items/pc_screen.png" id="8_b00c0"]
 [ext_resource type="PackedScene" uid="uid://nn4vas74wv21" path="res://src/world/items/soccer_ball.tscn" id="8_wial7"]
 [ext_resource type="PackedScene" uid="uid://ccwnxq7d64keh" path="res://src/world/items/watermelon.tscn" id="9_l72ix"]
+[ext_resource type="Texture2D" uid="uid://dfucjv1rhoaoc" path="res://assets/icons/items/keyboard.png" id="9_p73ki"]
 [ext_resource type="PackedScene" uid="uid://bx0wxda0s2swq" path="res://src/world/items/bomb.tscn" id="10_1mi1f"]
+[ext_resource type="PackedScene" uid="uid://2imoamxs4cb0" path="res://src/world/items/clock.tscn" id="11_l72ix"]
+[ext_resource type="PackedScene" uid="uid://c26buajtkrhgw" path="res://src/world/items/pc.tscn" id="13_lph4g"]
+[ext_resource type="PackedScene" uid="uid://cp3338ytn1sd" path="res://src/world/items/pc_screen.tscn" id="14_pwrbo"]
+[ext_resource type="PackedScene" uid="uid://cwvv65y5ge6hl" path="res://src/world/items/pc_keyboard.tscn" id="15_wjhem"]
 
 [resource]
 script = ExtResource("1_t2o0r")
-items = Array[PackedScene]([ExtResource("6_lph4g"), ExtResource("7_pwrbo"), ExtResource("8_wial7"), ExtResource("9_l72ix"), ExtResource("10_1mi1f")])
-icons = Array[CompressedTexture2D]([ExtResource("1_wial7"), ExtResource("2_l72ix"), ExtResource("3_1mi1f"), ExtResource("4_jnaut"), ExtResource("5_jqweu")])
-ban_list = Array[int]([1, 3])
+items = Array[PackedScene]([ExtResource("6_lph4g"), ExtResource("7_pwrbo"), ExtResource("8_wial7"), ExtResource("9_l72ix"), ExtResource("10_1mi1f"), ExtResource("11_l72ix"), ExtResource("13_lph4g"), ExtResource("14_pwrbo"), ExtResource("15_wjhem")])
+icons = Array[CompressedTexture2D]([ExtResource("1_wial7"), ExtResource("2_l72ix"), ExtResource("3_1mi1f"), ExtResource("4_jnaut"), ExtResource("5_jqweu"), ExtResource("6_1mi1f"), ExtResource("7_nuv3s"), ExtResource("8_b00c0"), ExtResource("9_p73ki")])
+ban_list = Array[int]([1, 3, 6, 7, 8])

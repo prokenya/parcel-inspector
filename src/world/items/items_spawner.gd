@@ -12,7 +12,6 @@ func _ready() -> void:
 
 func spawn_item(item: PackedScene):
 	var inst_item = item.instantiate()
-	inst_item.position = box.position
 	inst_item.item_id = items.find(item)
 	add_child(inst_item)
 

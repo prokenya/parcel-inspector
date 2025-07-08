@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bwrs2k5s0tiad"]
+[gd_scene load_steps=27 format=3 uid="uid://bwrs2k5s0tiad"]
 
 [ext_resource type="PackedScene" uid="uid://pgmbm2u72m37" path="res://src/world/conveyor.tscn" id="1_eewff"]
 [ext_resource type="Script" uid="uid://cw3ume8jofuc7" path="res://src/main.gd" id="1_kmhfv"]
@@ -8,11 +8,16 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_fyndt"]
 [ext_resource type="PackedScene" uid="uid://binhpd6iejoei" path="res://src/world/items/prism.tscn" id="4_rlaii"]
 [ext_resource type="Script" uid="uid://b8hhnqsugykly" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="5_fyndt"]
+[ext_resource type="PackedScene" uid="uid://c26buajtkrhgw" path="res://src/world/items/pc.tscn" id="6_sif16"]
+[ext_resource type="PackedScene" uid="uid://cwvv65y5ge6hl" path="res://src/world/items/pc_keyboard.tscn" id="7_d7bab"]
+[ext_resource type="PackedScene" uid="uid://cp3338ytn1sd" path="res://src/world/items/pc_screen.tscn" id="8_ib8ht"]
 [ext_resource type="Script" uid="uid://cs5s67ii4c0a6" path="res://src/world/box_eraser.gd" id="9_kf8lf"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="10_mgm53"]
 [ext_resource type="PackedScene" uid="uid://bw6483aw51lc7" path="res://src/world/screen.tscn" id="12_kqbth"]
 [ext_resource type="PackedScene" uid="uid://ced1g08ta4g0d" path="res://src/gui/gui.tscn" id="14_d3u4l"]
+[ext_resource type="PackedScene" uid="uid://ddnv7kvfw5cwo" path="res://src/world/shelf.tscn" id="14_e7lu8"]
 [ext_resource type="MeshLibrary" uid="uid://carorbqbjnpox" path="res://src/world/tiles.tres" id="14_mlv6i"]
+[ext_resource type="PackedScene" uid="uid://2imoamxs4cb0" path="res://src/world/items/clock.tscn" id="15_okx7f"]
 [ext_resource type="AudioStream" uid="uid://do7ko5eb2vwhv" path="res://assets/audio/sfx/burn.wav" id="16_sta5p"]
 [ext_resource type="AudioStream" uid="uid://darhv623bbjyj" path="res://assets/audio/music/m1.ogg" id="18_okx7f"]
 
@@ -64,7 +69,23 @@ box = NodePath("RigidBody3D")
 
 [node name="RigidBody3D" parent="world/item_spawner" instance=ExtResource("2_gh0ne")]
 
-[node name="item" parent="world/item_spawner" instance=ExtResource("4_rlaii")]
+[node name="prism" parent="world/item_spawner" instance=ExtResource("4_rlaii")]
+
+[node name="clock" parent="world/item_spawner" instance=ExtResource("15_okx7f")]
+transform = Transform3D(-0.789084, 0.614259, -0.00563534, 3.57242e-09, -0.00917382, -0.999958, -0.614285, -0.789051, 0.00723891, 4.0837, -1.42628, 1.89421)
+sleeping = true
+
+[node name="pc" parent="world/item_spawner" instance=ExtResource("6_sif16")]
+transform = Transform3D(0.21066, 0, 0.97756, 0, 1, 0, -0.97756, 0, 0.21066, 4.82222, -1.59616, -2.50923)
+item_id = 6
+
+[node name="pc screen" parent="world/item_spawner" instance=ExtResource("8_ib8ht")]
+transform = Transform3D(0.22131, 0, 0.975204, 0, 1, 0, -0.975204, 0, 0.22131, 4.86244, -1.72397, -1.94602)
+item_id = 7
+
+[node name="keyboard" parent="world/item_spawner" instance=ExtResource("7_d7bab")]
+transform = Transform3D(0.339214, 0, 0.940709, 0, 1, 0, -0.940709, 0, 0.339214, 5.4147, -1.88161, -2.17957)
+item_id = 8
 
 [node name="conveyor" parent="world" instance=ExtResource("1_eewff")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1.5)
@@ -152,6 +173,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 4)
 light_color = Color(1, 0, 0, 1)
 light_energy = 3.44
 omni_range = 12.0
+
+[node name="shelf" parent="world" instance=ExtResource("14_e7lu8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, 5.04387)
+
+[node name="shelf2" parent="world" instance=ExtResource("14_e7lu8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 3, -0.143854)
 
 [node name="GUILayer" type="CanvasLayer" parent="."]
 

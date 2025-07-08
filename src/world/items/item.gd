@@ -3,7 +3,7 @@ extends RigidBody3D
 
 @export var y_offset: float = 2
 
-var item_id: int = 0
+@export var item_id: int = 0
 var in_box: bool = true
 
 var picked: bool = false:
@@ -30,6 +30,7 @@ var tween: Tween
 	]
 
 func _ready() -> void:
+	continuous_cd = true
 	interact_delay.one_shot = true
 	add_child(interact_delay)
 	add_child(audio_player)
