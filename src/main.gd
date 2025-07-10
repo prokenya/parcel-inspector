@@ -3,7 +3,8 @@ class_name Main
 
 @onready var camera: PhantomCamera3D = $world/PhantomCamera3D
 @onready var camera_look_in: PhantomCamera3D = $world/PhantomCamera3D_look_in
-
+@onready var phantom_camera_dead: PhantomCamera3D = $world/PhantomCamera3D_dead
+@onready var end: CanvasLayer = $GUILayer/end
 
 signal current_item_changed()
 var current_item:Item:

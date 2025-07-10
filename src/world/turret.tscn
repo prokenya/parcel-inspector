@@ -1,0 +1,97 @@
+[gd_scene load_steps=16 format=3 uid="uid://cc866ctssktho"]
+
+[ext_resource type="PackedScene" uid="uid://6y6r6lg1iis5" path="res://assets/models/turret.fbx" id="1_mivm4"]
+[ext_resource type="Script" uid="uid://c12k6pu1asakp" path="res://src/world/turret.gd" id="1_w5x8f"]
+[ext_resource type="Script" uid="uid://ccmiitq0sdh7j" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_noise_emitter_3d.gd" id="3_7a0pm"]
+[ext_resource type="Script" uid="uid://cuffvge5ad4aa" path="res://addons/phantom_camera/scripts/resources/phantom_camera_noise_3d.gd" id="4_vkatn"]
+[ext_resource type="AudioStream" uid="uid://cynt7ohep1ors" path="res://assets/audio/sfx/fire.wav" id="5_vkatn"]
+
+[sub_resource type="Curve" id="Curve_w5x8f"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.269663), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_mcnie"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.213483), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_7a0pm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.258427), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_vkatn"]
+curve_x = SubResource("Curve_w5x8f")
+curve_y = SubResource("Curve_mcnie")
+curve_z = SubResource("Curve_7a0pm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_w5x8f"]
+lifetime_randomness = 0.5
+initial_velocity_max = 29.19
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveXYZTexture_vkatn")
+color = Color(1, 1, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_w5x8f"]
+offsets = PackedFloat32Array(0, 0.691589)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mcnie"]
+gradient = SubResource("Gradient_w5x8f")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7a0pm"]
+transparency = 1
+albedo_color = Color(1, 0.443137, 0, 1)
+albedo_texture = SubResource("GradientTexture2D_mcnie")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_w5x8f"]
+material = SubResource("StandardMaterial3D_7a0pm")
+size = Vector2(0.4, 0.4)
+
+[sub_resource type="Resource" id="Resource_lo028"]
+script = ExtResource("4_vkatn")
+amplitude = 50.0
+frequency = 20.0
+randomize_noise_seed = 0
+noise_seed = 928
+rotational_noise = true
+positional_noise = false
+rotational_multiplier_x = 1.0
+rotational_multiplier_y = 1.0
+rotational_multiplier_z = 0.4
+positional_multiplier_x = 1.0
+positional_multiplier_y = 1.0
+positional_multiplier_z = 1.0
+
+[node name="turret" type="Node3D"]
+script = ExtResource("1_w5x8f")
+
+[node name="turret" parent="." instance=ExtResource("1_mivm4")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(2.98023e-08, 0, 1, 0, 1, 0, -1, 0, 2.98023e-08, 0, 0.301447, -1.00481)
+emitting = false
+amount = 32
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+randomness = 0.34
+process_material = SubResource("ParticleProcessMaterial_w5x8f")
+draw_pass_1 = SubResource("QuadMesh_w5x8f")
+
+[node name="PlayerPhantomCameraNoiseEmitter3D" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-4.37085e-08, 0, 0.999925, 0, 0.999995, 0, -0.999933, 0, -4.37081e-08, -16.46, 0.503767, 4.249)
+script = ExtResource("3_7a0pm")
+noise = SubResource("Resource_lo028")
+duration = 0.3
+decay_time = 0.1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_vkatn")
+bus = &"sfx"
